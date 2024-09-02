@@ -8,15 +8,12 @@ import org.example.comportamiento.strategy.strategies.PagarConTarjetaDeCredito;
 import org.example.comportamiento.strategy.strategies.Pedido;
 import org.example.creacionales.builder.Pizza;
 import org.example.creacionales.builder.PizzaBuilder;
-import org.example.creacionales.factoryMethod.factories.AutoFactory;
+import org.example.creacionales.factoryMethod.factories.MotoFactory;
 import org.example.creacionales.factoryMethod.factories.VehiculoFactory;
 import org.example.creacionales.factoryMethod.impl.Auto;
-import org.example.creacionales.factoryMethod.impl.Moto;
 import org.example.creacionales.factoryMethod.interfaces.Vehiculo;
 import org.example.creacionales.singleton.AppConfig;
-import org.example.estructurales.adapter.PosnetAdapter;
-import org.example.estructurales.adapter.ProcesadorDePago;
-import org.example.estructurales.adapter.TransferenciasBancarias;
+import org.example.estructurales.adapter.*;
 import org.example.estructurales.decorator.AzucarDecorator;
 import org.example.estructurales.decorator.Bebida;
 import org.example.estructurales.decorator.Cafe;
@@ -91,9 +88,6 @@ public class Main {
         ReservaDeTickets reservation = new ReservaDeTickets();
         reservation.reservarTicket();
 
-        // Clase para procesar el pago
-        ProcesadorDePago paymentProcessor = new TransferenciasBancarias("SANTANDER");
-        paymentProcessor.ejecutarTransaccion("gonza",5000);
 
         EntradasFacade entradasFacade = new EntradasFacade();
         entradasFacade.comprarEntradas("gonza",5000);
@@ -105,18 +99,46 @@ public class Main {
         //como queremos armar el objeto
         Pizza pizza  = new PizzaBuilder().agregarPepperoni().agregarQueso().agregarBacon().seleccionarTamanio("XL").build();
 
+
+        Pizza pizzaIndividual = new PizzaBuilder().agregarQueso().build();
+
         System.out.println(pizza);
     }
 
     private static void adapter() {
+        XmlData myData = new XmlData();
+
+        // Old UI
+        IMultiRestoApp multiRestoApp = new MultiRestoApp();
+        multiRestoApp.displayMenus(myData);
+        multiRestoApp.displayRecommendations(myData);
+
+        System.out.println("==========================================");
+
+        FancyUIService fancyUIService = new FancyUIService();
+        //convertirXMLaJson(myData,new JsonData());
+        fancyUIService.displayMenus(new JsonData());
+
+
+        // New UI
+        IMultiRestoApp adapter = new FancyUIServiceAdapter();
+        adapter.displayMenus(myData);
+        adapter.displayRecommendations(myData);
 
     }
 
     private static void decorator() {
+
+
+        Bebida cafeCompleto  = new AzucarDecorator(new LecheDecorator(new Cafe()));
+
+
         //PATRON DECORATOR
         // Crear una bebida simple: un café
         Bebida cafe = new Cafe();
         System.out.println(cafe.getDescription() + " cuesta $" + cafe.getPrice());
+
+
 
         // Añadir leche al café
         Bebida cafeConLeche = new LecheDecorator(cafe);
@@ -129,21 +151,22 @@ public class Main {
     }
 
     private static void problemaSinFactory(String vehiculoACrear){
+
+
+
         Vehiculo vehiculo =  null ;
-            if("AUTO".equals(vehiculoACrear)){
-                vehiculo=new Auto();
-            }else if ("MOTO".equals(vehiculoACrear)){
-                vehiculo=new Moto();
+            if("AUTO".equals(vehiculoACrear)) {
+                vehiculo = new Auto();
             }
-         vehiculo.probar();
+                vehiculo.probar();
+
 
     }
 
-
     private static void factoryMethod() {
 
-        VehiculoFactory vehiculoFactory = new AutoFactory();
-        vehiculoFactory.comprarVehiculo();
+        VehiculoFactory motoFactory = new MotoFactory();
+        motoFactory.venderVehiculo();
 
     }
 

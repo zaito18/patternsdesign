@@ -7,13 +7,6 @@ public class Pizza {
     private boolean conPepperoni;
     private boolean conBacon;
 
-    public Pizza(String tamanio, boolean conQueso, boolean conPepperoni){
-        this.tamanio = tamanio;
-        this.conQueso = conQueso;
-        this.conPepperoni = conPepperoni;
-    }
-
-
     public Pizza(PizzaBuilder builder) {
         this.tamanio = builder.tamanio;
         this.conBacon = builder.conBacon;

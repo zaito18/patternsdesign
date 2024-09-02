@@ -5,13 +5,13 @@ import java.util.List;
 
 public class DiarioClarin implements Sujeto {
     private List<Observador> observadores;
+    private String novedades;
+
 
     public void publicarNoticia(String novedades) {
         this.novedades = novedades;
         actualizarObservadores();
     }
-
-    private String novedades;
 
     public DiarioClarin() {
         this.observadores = new ArrayList<Observador>();

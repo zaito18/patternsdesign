@@ -1,11 +1,11 @@
 package org.example.creacionales.factoryMethod.factories;
 
-import org.example.creacionales.factoryMethod.impl.Auto;
+import org.example.creacionales.factoryMethod.impl.Avion;
 import org.example.creacionales.factoryMethod.interfaces.Vehiculo;
 
-public class AutoFactory extends VehiculoFactory{
+public class AvionFactory extends VehiculoFactory {
     @Override
     public Vehiculo crearVehiculo() {
-        return new Auto();
+        return new Avion();
     }
 }

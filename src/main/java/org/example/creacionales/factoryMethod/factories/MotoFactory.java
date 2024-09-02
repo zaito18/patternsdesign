@@ -6,6 +6,7 @@ import org.example.creacionales.factoryMethod.interfaces.Vehiculo;
 public class MotoFactory extends VehiculoFactory{
     @Override
     public Vehiculo crearVehiculo() {
-        return new Moto();
+            return new Moto();
+
     }
 }

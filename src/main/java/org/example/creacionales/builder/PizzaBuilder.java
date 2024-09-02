@@ -7,11 +7,11 @@ public class PizzaBuilder {
     boolean conPepperoni;
     boolean conBacon;
 
-
     public PizzaBuilder seleccionarTamanio(String tamanio) {
         this.tamanio = tamanio;
         return this;
     }
+
 
     public PizzaBuilder agregarQueso() {
         this.conQueso= true;
